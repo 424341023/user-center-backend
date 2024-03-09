@@ -35,10 +35,55 @@ public class UserServiceTest {
         user.setEmail("456");
         user.setPlanetCode("");
 
-       boolean result = userService.save(user);
-
+        boolean result = userService.save(user);
         System.out.println(user.getId());
         Assertions.assertTrue(result);
     }
 
+    @Test
+    void userRegister() {
+        // 空值
+        String userAccount = "zongcc";
+        String userPassword = "";
+        String checkPassword = "123456";
+        long result = userService.userRegister(userAccount, userPassword, checkPassword);
+        Assertions.assertEquals(-1, result);
+
+        // userAccount长度小于4
+        userAccount = "zon";
+        result = userService.userRegister(userAccount, userPassword, checkPassword);
+        Assertions.assertEquals(-1, result);
+
+        // userPassword长度小于8
+        userAccount = "zongcc";
+        userPassword = "123456";
+        result = userService.userRegister(userAccount, userPassword, checkPassword);
+        Assertions.assertEquals(-1, result);
+
+        // 包含特殊字符
+        userAccount = "zongc*c";
+        userPassword = "12345678";
+        result = userService.userRegister(userAccount, userPassword, checkPassword);
+        Assertions.assertEquals(-1, result);
+
+        // 前后密码不一致
+        userAccount = "zongcc";
+        userPassword = "123456789";
+        checkPassword = "12345678";
+        result = userService.userRegister(userAccount, userPassword, checkPassword);
+        Assertions.assertEquals(-1, result);
+
+        // 该用户名已经被注册
+        userAccount = "zongcai";
+        userPassword = "123456789";
+        checkPassword = "123456789";
+        result = userService.userRegister(userAccount, userPassword, checkPassword);
+        Assertions.assertEquals(-1, result);
+
+        // 注册成功
+        userAccount = "zongcai111";
+        result = userService.userRegister(userAccount, userPassword, checkPassword);
+        Assertions.assertTrue(result > 0);
+
+    }
 }
