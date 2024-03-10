@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.java.usercenterbackend.constant.UserConstant.USER_LOGIN_STATE;
+
 /**
  * @author sunshine
  * @description 针对表【user(用户)】的数据库操作Service实现
@@ -33,11 +35,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
      * 盐值，用于混交加密
      */
     private static final String SALT = "zongc";
-
-    /**
-     * 用户登录态键
-     */
-    public static final String USER_LOGIN_STATE= "userLoginState:";
 
     @Override
     public long userRegister(String userAccount, String userPassword, String checkPassword) {
