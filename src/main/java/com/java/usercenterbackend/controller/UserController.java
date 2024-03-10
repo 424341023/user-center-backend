@@ -72,6 +72,24 @@ public class UserController {
 
     }
 
+    /**
+     * 获取当前用户信息
+     * @param request
+     * @return
+     */
+    @GetMapping("/current")
+    public User getCurrentUser(HttpServletRequest request) {
+        Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
+        User currentUser = (User) userObj;
+        if (currentUser == null) {
+            return null;
+        }
+        Long userId = currentUser.getId();
+        // TODO 校验用户是否合法
+        User user = userService.getById(userId);
+        return userService.getSafetyUser(user);
+    }
+
     @GetMapping("/search")
     public List<User> searchUsers(String username, HttpServletRequest request) {
         if (!isAdmin(request)) {
