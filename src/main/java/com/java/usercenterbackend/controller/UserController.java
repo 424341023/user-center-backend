@@ -72,6 +72,14 @@ public class UserController {
 
     }
 
+    @PostMapping("/logout")
+    public Integer userLogout(@RequestBody HttpServletRequest request) {
+        if(request== null){
+            return null;
+        }
+        return userService.userLogout(request);
+    }
+
     /**
      * 获取当前用户信息
      * @param request
