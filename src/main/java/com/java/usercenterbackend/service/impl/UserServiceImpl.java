@@ -36,9 +36,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     private static final String SALT = "zongc";
 
     @Override
-    public long userRegister(String userAccount, String userPassword, String checkPassword) {
+    public long userRegister(String userAccount, String userPassword, String checkPassword, String planetCode) {
         // 1. 校验
-        if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)) {
+        if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword, planetCode)) {
             // todo 修改为封装异常
             return -1;
         }
@@ -50,6 +50,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         if (userPassword.length() < 8) {
             return -1;
         }
+
+        if (planetCode.length() > 5) {
+            return -1;
+        }
+
 
         // 账号不能包含特殊字符
         String validPattern = "[`~!@#$%^&*()+=|{}':;',\\\\[\\\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
@@ -71,6 +76,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             return -1;
         }
 
+        // 星球编号不能重复
+        queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("planetCode", planetCode);
+        count = userMapper.selectCount(queryWrapper);
+        if (count > 0) {
+            return -1;
+        }
+
         // 2. 加密
         String encryptPassword = DigestUtils.md5DigestAsHex((SALT + userPassword).getBytes());
         System.out.println(encryptPassword);
@@ -79,6 +92,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         User user = new User();
         user.setUserAccount(userAccount);
         user.setUserPassword(encryptPassword);
+        user.setPlanetCode(planetCode);
         boolean saveResult = this.save(user);
         if (!saveResult) {
             return -1;
@@ -152,6 +166,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         safetyUser.setGender(originUser.getGender());
         safetyUser.setPhone(originUser.getPhone());
         safetyUser.setEmail(originUser.getEmail());
+        safetyUser.setPlanetCode(originUser.getPlanetCode());
         safetyUser.setUserStatus(originUser.getUserStatus());
         safetyUser.setCreateTime(originUser.getCreateTime());
         safetyUser.setUserRole(originUser.getUserRole());
