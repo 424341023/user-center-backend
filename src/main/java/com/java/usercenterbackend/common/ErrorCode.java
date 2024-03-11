@@ -30,6 +30,18 @@ public enum ErrorCode {
         this.message = message;
         this.description = description;
     }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }
 
 
