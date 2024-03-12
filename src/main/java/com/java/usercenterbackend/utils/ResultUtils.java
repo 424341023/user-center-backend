@@ -35,7 +35,7 @@ public class ResultUtils {
         return new BaseResponce<>(errorCode);
     }
     /**
-失败
+     失败
      *
      * @param errorCode
      * @param message
