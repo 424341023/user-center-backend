@@ -14,7 +14,8 @@ public enum ErrorCode {
     PARAMS_NULL_ERROR(40001, "请求参数为空", ""),
     NOT_LOGIN(40100, "未登录", ""),
     NO_AUTH(40101, "未授权", ""),
-    SYSTEM_ERROR(50000, "系统内部错误", "");
+    SYSTEM_ERROR(50000, "系统内部错误", ""),
+    LOGOUT_ERROR(40102, "登出失败", "");
 
     /**
      * 状态码信息

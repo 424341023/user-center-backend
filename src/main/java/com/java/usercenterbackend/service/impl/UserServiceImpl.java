@@ -7,6 +7,7 @@ import com.java.usercenterbackend.exception.BusinessException;
 import com.java.usercenterbackend.model.domain.User;
 import com.java.usercenterbackend.service.UserService;
 import com.java.usercenterbackend.mapper.UserMapper;
+import com.java.usercenterbackend.utils.ResultUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -177,7 +178,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Override
     public int userLogout(HttpServletRequest request) {
         // 移除登录态
-        request.getSession().removeAttribute(USER_LOGIN_STATE);
-        return 1;
+        if (request.getSession().getAttribute(USER_LOGIN_STATE) != null) {
+            request.getSession().removeAttribute(USER_LOGIN_STATE);
+            return 1;
+        }
+        throw new BusinessException(ErrorCode.LOGOUT_ERROR, "用户已登出");
     }
 }
