@@ -106,7 +106,8 @@
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <mainClass>com.java.usercenterbackend.UserCenterBackendApplication</mainClass>
-                    <skip>true</skip>
+                    <!--需要将下面的注释掉,否则Docker部署时，会出现no main manifest attribute，-->
+                    <!--<skip>true</skip>-->
                 </configuration>
                 <executions>
                     <execution>
