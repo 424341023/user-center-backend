@@ -23,12 +23,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BusinessException.class)
     public BaseResponce bussiessExceptionHandler(BusinessException e) {
         log.error("businessException: " + e.getMessage(), e);
-        return ResultUtils.error(ErrorCode.SYSTEM_ERROR, e.getMessage(), e.getDescription());
+        return ResultUtils.error(e.getCode(), e.getMessage(), e.getDescription());
     }
 
     @ExceptionHandler(RuntimeException.class)
     public BaseResponce runtimeExceptionHandler(RuntimeException e) {
         log.error("runtimeException:" + e.getMessage(), e);
-        return ResultUtils.error(ErrorCode.SYSTEM_ERROR, e.getMessage(), "");
+        return ResultUtils.error(ErrorCode.SYSTEM_ERROR, ErrorCode.SYSTEM_ERROR.getMessage(), "");
     }
 }
