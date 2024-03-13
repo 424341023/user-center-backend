@@ -81,7 +81,7 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public BaseResponce<Integer> userLogout(@RequestBody HttpServletRequest request) {
+    public BaseResponce<Integer> userLogout(HttpServletRequest request) {
         if(request== null){
             throw new BusinessException(ErrorCode.PARAMS_NULL_ERROR,"用户登出请求为空");
         }
