@@ -10,14 +10,10 @@ import com.java.usercenterbackend.model.domain.request.UserRegisterRequest;
 import com.java.usercenterbackend.service.UserService;
 import com.java.usercenterbackend.utils.ResultUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.function.RouterFunctionDslKt;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
